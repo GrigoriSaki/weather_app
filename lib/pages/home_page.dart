@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:weather_app/components/main_weather_card.dart';
+import 'package:weather_app/components/weather_widgets/main_weather_card.dart';
 import 'package:weather_app/components/my_app_bar.dart';
-import 'package:weather_app/components/my_drawer.dart';
-import 'package:weather_app/components/second_weather_card.dart';
+import 'package:weather_app/components/drawer/my_drawer.dart';
+import 'package:weather_app/components/weather_widgets/second_weather_card.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+  final double panelPosition;
+  const HomePage({
+    super.key,
+    required this.panelPosition,
+  });
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -29,7 +33,9 @@ class _HomePageState extends State<HomePage> {
           child: Column(
             children: [
               MyAppBar(),
-              MainWeatherCard(),
+              MainWeatherCard(
+                panelPosition: widget.panelPosition,
+              ),
               SecondWeatherCard(),
             ],
           ),

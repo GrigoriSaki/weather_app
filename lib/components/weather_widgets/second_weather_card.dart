@@ -2,7 +2,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:weather_app/components/middle_widg_tile.dart';
+import 'package:weather_app/components/weather_widgets/middle_widg_tile.dart';
 
 class SecondWeatherCard extends StatelessWidget {
   const SecondWeatherCard({super.key});

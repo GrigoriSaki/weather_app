@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:weather_app/pages/home_page.dart';
+import 'package:weather_app/pages/home_with_panel.dart';
 import 'package:weather_app/theme/dark_mode.dart';
 import 'package:weather_app/theme/light_mode.dart';
 
@@ -16,6 +16,6 @@ class MyApp extends StatelessWidget {
         theme: lightTheme,
         darkTheme: darkTheme,
         debugShowCheckedModeBanner: false,
-        home: HomePage());
+        home: HomeWithPanel());
   }
 }
