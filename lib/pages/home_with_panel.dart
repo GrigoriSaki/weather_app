@@ -13,6 +13,7 @@ class HomeWithPanel extends StatefulWidget {
 class _HomeWithPanelState extends State<HomeWithPanel> {
   final PanelController _panelController = PanelController();
   double _panelPosition = 0.0;
+  double _blurValue = 0.0;
 
   @override
   Widget build(BuildContext context) {
@@ -26,9 +27,17 @@ class _HomeWithPanelState extends State<HomeWithPanel> {
         onPanelSlide: (position) {
           setState(() {
             _panelPosition = position;
+            if (position > 0.01 && position < 1) {
+              _blurValue = position * 10;
+            } else {
+              _blurValue = 0;
+            }
           });
         },
-        body: HomePage(panelPosition: _panelPosition),
+        body: HomePage(
+          panelPosition: _panelPosition,
+          blurValue: _blurValue,
+        ),
       ),
     );
   }

@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -6,7 +8,9 @@ import 'package:weather_app/theme/gradient_text.dart';
 
 class MainWeatherCard extends StatelessWidget {
   final double panelPosition;
-  MainWeatherCard({super.key, required this.panelPosition});
+  final double blurValue;
+  MainWeatherCard(
+      {super.key, required this.panelPosition, required this.blurValue});
 
   final String formattedDate =
       DateFormat('E, MMM d HH:mm').format(DateTime.now());
@@ -26,48 +30,6 @@ class MainWeatherCard extends StatelessWidget {
         width: MediaQuery.of(context).size.width * 0.9,
         child: Stack(
           children: [
-            //Date Time
-            Positioned(
-              top: 2,
-              left: 2,
-              child: Text(
-                formattedDate,
-                style: GoogleFonts.lato(
-                    color: Theme.of(context).colorScheme.onPrimary),
-              ),
-            ),
-
-            //Main Temperature
-            Positioned(
-              top: 5 + offset,
-              left: 2,
-              child: Transform.scale(
-                scale: scale,
-                child: GradientText(
-                  text: "17",
-                  fontSize: 130,
-                  fontWeight: FontWeight.w500,
-                  color: Colors.white,
-                  applyHeightBehaviors: false,
-                ),
-              ),
-            ),
-            Positioned(
-              top: 10 + offsetTopC,
-              left: 140 + offsetRightC,
-              child: Transform.scale(
-                scale: scale,
-                child: Padding(
-                    padding: const EdgeInsets.only(top: 8.0),
-                    child: GradientText(
-                      text: "°" + "C",
-                      fontSize: 50,
-                      fontWeight: FontWeight.w400,
-                      color: Colors.white,
-                      applyHeightBehaviors: true,
-                    )),
-              ),
-            ),
             Positioned(
                 right: 2 + panelPosition * 130,
                 top: 30,
@@ -150,7 +112,67 @@ class MainWeatherCard extends StatelessWidget {
                       ],
                     ),
                   ),
-                ))
+                )),
+
+            //Blur effect
+            if (blurValue > 0)
+              Positioned(
+                top: 0,
+                left: 0,
+                height: 200,
+                child: BackdropFilter(
+                  filter: ImageFilter.blur(
+                    sigmaX: blurValue,
+                    sigmaY: blurValue,
+                  ),
+                  child: Container(
+                    color: Colors.transparent,
+                  ),
+                ),
+              ),
+
+            //Date Time
+            Positioned(
+              top: 2,
+              left: 2,
+              child: Text(
+                formattedDate,
+                style: GoogleFonts.lato(
+                    color: Theme.of(context).colorScheme.onPrimary),
+              ),
+            ),
+
+            //Main Temperature
+            Positioned(
+              top: 5 + offset,
+              left: 2,
+              child: Transform.scale(
+                scale: scale,
+                child: GradientText(
+                  text: "17",
+                  fontSize: 130,
+                  fontWeight: FontWeight.w500,
+                  color: Colors.white,
+                  applyHeightBehaviors: false,
+                ),
+              ),
+            ),
+            Positioned(
+              top: 10 + offsetTopC,
+              left: 140 + offsetRightC,
+              child: Transform.scale(
+                scale: scale,
+                child: Padding(
+                    padding: const EdgeInsets.only(top: 8.0),
+                    child: GradientText(
+                      text: "°" + "C",
+                      fontSize: 50,
+                      fontWeight: FontWeight.w400,
+                      color: Colors.white,
+                      applyHeightBehaviors: true,
+                    )),
+              ),
+            ),
           ],
         ),
       ),
