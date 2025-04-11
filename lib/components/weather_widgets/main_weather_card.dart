@@ -4,23 +4,31 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
+import 'package:weather_app/components/weather_widgets/animated_temp_widg.dart';
 import 'package:weather_app/theme/gradient_text.dart';
 
-class MainWeatherCard extends StatelessWidget {
+class MainWeatherCard extends StatefulWidget {
   final double panelPosition;
   final double blurValue;
+  bool isExpanded = false;
   MainWeatherCard(
       {super.key, required this.panelPosition, required this.blurValue});
+  double tempWidgWidth = 135;
 
+  @override
+  State<MainWeatherCard> createState() => _MainWeatherCardState();
+}
+
+class _MainWeatherCardState extends State<MainWeatherCard> {
   final String formattedDate =
       DateFormat('E, MMM d HH:mm').format(DateTime.now());
 
   @override
   Widget build(BuildContext context) {
-    double scale = 1.0 - (panelPosition * 0.1);
-    double offset = -(panelPosition * 10);
-    double offsetTopC = -(panelPosition * 5);
-    double offsetRightC = -(panelPosition * 10);
+    double scale = 1.0 - (widget.panelPosition * 0.1);
+    double offset = -(widget.panelPosition * 10);
+    double offsetTopC = -(widget.panelPosition * 5);
+    double offsetRightC = -(widget.panelPosition * 10);
     double widgetHeight = MediaQuery.of(context).size.height * 0.25;
 
     return Padding(
@@ -30,13 +38,61 @@ class MainWeatherCard extends StatelessWidget {
         width: MediaQuery.of(context).size.width * 0.9,
         child: Stack(
           children: [
+            //Predicted Temperature for today
             Positioned(
-                right: 2 + panelPosition * 130,
+                bottom: 10 + (widget.panelPosition * 110),
+                left: 2 + (widget.panelPosition * 190),
+                child: GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      if (widget.tempWidgWidth <= 135 &&
+                          widget.panelPosition == 0) {
+                        widget.tempWidgWidth = 300;
+                        Future.delayed(
+                          Duration(milliseconds: 250),
+                          () {
+                            setState(() {
+                              widget.isExpanded = true;
+                            });
+                          },
+                        );
+                      } else if (widget.tempWidgWidth > 135) {
+                        widget.isExpanded = false;
+                        widget.tempWidgWidth = 135;
+                      }
+                    });
+                  },
+                  child: AnimatedContainer(
+                    duration: Duration(milliseconds: 200),
+                    curve: Curves.easeInOut,
+                    height: 50,
+                    width: widget.tempWidgWidth,
+                    decoration: BoxDecoration(
+                        border: Border.all(
+                            color: Theme.of(context)
+                                .colorScheme
+                                .onPrimary
+                                .withAlpha(40),
+                            width: 2),
+                        color: Theme.of(context)
+                            .colorScheme
+                            .onPrimary
+                            .withAlpha(30),
+                        borderRadius: BorderRadius.circular(30)),
+                    child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                        child: AnimatedTempWidget(
+                          isExpanded: widget.isExpanded,
+                        )),
+                  ),
+                )),
+            Positioned(
+                right: 2 + widget.panelPosition * 130,
                 top: 30,
                 child: RotatedBox(
                     quarterTurns: 3,
                     child: Transform.rotate(
-                      angle: 0 + (panelPosition * 1.57),
+                      angle: 0 + (widget.panelPosition * 1.57),
                       child: Row(
                         children: [
                           Icon(
@@ -56,74 +112,16 @@ class MainWeatherCard extends StatelessWidget {
                       ),
                     ))),
 
-            //Predicted Temperature for today
-            Positioned(
-                bottom: 15 + (panelPosition * 110),
-                left: 2 + (panelPosition * 190),
-                child: Container(
-                  height: 40,
-                  width: 135,
-                  decoration: BoxDecoration(
-                      border: Border.all(
-                          color: Theme.of(context)
-                              .colorScheme
-                              .onPrimary
-                              .withAlpha(40),
-                          width: 2),
-                      color:
-                          Theme.of(context).colorScheme.onPrimary.withAlpha(30),
-                      borderRadius: BorderRadius.circular(30)),
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        Icon(FontAwesomeIcons.arrowUp,
-                            size: 15,
-                            color: Theme.of(context)
-                                .colorScheme
-                                .onPrimary
-                                .withAlpha(200)),
-                        Text(
-                          "24" + "°",
-                          style: GoogleFonts.lato(
-                              color: Theme.of(context).colorScheme.onPrimary,
-                              fontSize: 17,
-                              fontWeight: FontWeight.w600),
-                        ),
-                        SizedBox(
-                          width: 10,
-                        ),
-                        Icon(
-                          FontAwesomeIcons.arrowDown,
-                          size: 15,
-                          color: Theme.of(context)
-                              .colorScheme
-                              .onPrimary
-                              .withAlpha(200),
-                        ),
-                        Text(
-                          "18" + "°",
-                          style: GoogleFonts.lato(
-                              color: Theme.of(context).colorScheme.onPrimary,
-                              fontSize: 17,
-                              fontWeight: FontWeight.w600),
-                        ),
-                      ],
-                    ),
-                  ),
-                )),
-
             //Blur effect
-            if (blurValue > 0)
+            if (widget.blurValue > 0)
               Positioned(
                 top: 0,
                 left: 0,
                 height: 200,
                 child: BackdropFilter(
                   filter: ImageFilter.blur(
-                    sigmaX: blurValue,
-                    sigmaY: blurValue,
+                    sigmaX: widget.blurValue,
+                    sigmaY: widget.blurValue,
                   ),
                   child: Container(
                     color: Colors.transparent,
@@ -148,12 +146,14 @@ class MainWeatherCard extends StatelessWidget {
               left: 2,
               child: Transform.scale(
                 scale: scale,
-                child: GradientText(
-                  text: "17",
-                  fontSize: 130,
-                  fontWeight: FontWeight.w500,
-                  color: Colors.white,
-                  applyHeightBehaviors: false,
+                child: IgnorePointer(
+                  child: GradientText(
+                    text: "17",
+                    fontSize: 130,
+                    fontWeight: FontWeight.w500,
+                    color: Colors.white,
+                    applyHeightBehaviors: false,
+                  ),
                 ),
               ),
             ),

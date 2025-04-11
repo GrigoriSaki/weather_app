@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
-import 'package:weather_app/components/panel_content.dart';
+import 'package:weather_app/components/drawer/my_drawer.dart';
+import 'package:weather_app/components/slide_up_content/panel_content.dart';
 import 'package:weather_app/pages/home_page.dart';
 
 class HomeWithPanel extends StatefulWidget {
@@ -18,11 +19,12 @@ class _HomeWithPanelState extends State<HomeWithPanel> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: MyDrawer(),
       body: SlidingUpPanel(
         controller: _panelController,
         color: Colors.transparent,
-        minHeight: MediaQuery.of(context).size.height / 3,
-        maxHeight: MediaQuery.of(context).size.height * 2 / 3,
+        minHeight: 75 + MediaQuery.of(context).size.height / 3,
+        maxHeight: 50 + MediaQuery.of(context).size.height * 2 / 3,
         panel: PanelContent(),
         onPanelSlide: (position) {
           setState(() {

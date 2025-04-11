@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:weather_app/pages/home_with_panel.dart';
 import 'package:weather_app/theme/dark_mode.dart';
 import 'package:weather_app/theme/light_mode.dart';
 
 void main() {
+  debugPaintSizeEnabled = false;
   runApp(const MyApp());
 }
 
