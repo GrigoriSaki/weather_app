@@ -6,10 +6,19 @@ import 'package:weather_app/components/slide_up_content/hourly_forecast.dart';
 import 'package:weather_app/components/slide_up_content/tommorow_forecast.dart';
 
 class PanelContent extends StatelessWidget {
-  const PanelContent({super.key});
+  double panelPosition;
+  PanelContent({super.key, required this.panelPosition});
 
   @override
   Widget build(BuildContext context) {
+    bool isPanelOpen() {
+      if (panelPosition == 1) {
+        return true;
+      } else {
+        return false;
+      }
+    }
+
     return ClipPath(
       clipper: TopEdgeCurved(),
       child: Container(
@@ -49,7 +58,7 @@ class PanelContent extends StatelessWidget {
                           temperature: "20",
                         );
                       })),
-              Text("Tommorow",
+              Text(isPanelOpen() ? "Weekly" : "Tommorow",
                   style: GoogleFonts.lato(
                       fontSize: 18,
                       fontWeight: FontWeight.w500,

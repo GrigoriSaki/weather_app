@@ -6,6 +6,7 @@ import 'package:weather_app/components/weather_widgets/second_weather_card.dart'
 class HomePage extends StatefulWidget {
   final double panelPosition;
   final double blurValue;
+
   const HomePage({
     super.key,
     required this.panelPosition,

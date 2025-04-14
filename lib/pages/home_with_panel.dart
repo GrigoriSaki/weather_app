@@ -25,7 +25,9 @@ class _HomeWithPanelState extends State<HomeWithPanel> {
         color: Colors.transparent,
         minHeight: 75 + MediaQuery.of(context).size.height / 3,
         maxHeight: 50 + MediaQuery.of(context).size.height * 2 / 3,
-        panel: PanelContent(),
+        panel: PanelContent(
+          panelPosition: _panelPosition,
+        ),
         onPanelSlide: (position) {
           setState(() {
             _panelPosition = position;

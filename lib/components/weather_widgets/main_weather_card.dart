@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
@@ -9,10 +10,14 @@ import 'package:weather_app/theme/gradient_text.dart';
 
 class MainWeatherCard extends StatefulWidget {
   final double panelPosition;
-  final double blurValue;
+  double blurValue;
+
   bool isExpanded = false;
-  MainWeatherCard(
-      {super.key, required this.panelPosition, required this.blurValue});
+  MainWeatherCard({
+    super.key,
+    required this.panelPosition,
+    required this.blurValue,
+  });
   double tempWidgWidth = 135;
 
   @override
@@ -117,7 +122,7 @@ class _MainWeatherCardState extends State<MainWeatherCard> {
               Positioned(
                 top: 0,
                 left: 0,
-                height: 200,
+                height: 250,
                 child: BackdropFilter(
                   filter: ImageFilter.blur(
                     sigmaX: widget.blurValue,

@@ -40,7 +40,10 @@ class HourlyForecast extends StatelessWidget {
                 style: GoogleFonts.lato(
                     fontSize: 14,
                     fontWeight: FontWeight.w500,
-                    color: Theme.of(context).colorScheme.secondary)),
+                    color: Theme.of(context)
+                        .colorScheme
+                        .onSurface
+                        .withAlpha(150))),
 
             //temperature
             Text(temperature + "°",
