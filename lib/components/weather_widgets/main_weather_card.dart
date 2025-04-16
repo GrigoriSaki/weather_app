@@ -8,6 +8,7 @@ import 'package:intl/intl.dart';
 import 'package:weather_app/components/weather_widgets/animated_temp_widg.dart';
 import 'package:weather_app/theme/gradient_text.dart';
 
+// ignore: must_be_immutable
 class MainWeatherCard extends StatefulWidget {
   final double panelPosition;
   double blurValue;

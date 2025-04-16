@@ -2,10 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:weather_app/components/two_temp_widg.dart';
 
-class TommorowForecast extends StatelessWidget {
-  const TommorowForecast({super.key});
+class ForecastCard extends StatelessWidget {
+  const ForecastCard({
+    super.key,
+    required this.comment,
+    required this.day_of_week,
+    required this.low_temp,
+    required this.high_temp,
+    required this.weather_icon,
+  });
 
-  final String comment = "Rainy with a chance of thunderstorms";
+  final String comment;
+  final String day_of_week;
+  final String low_temp;
+  final String high_temp;
+  final IconData weather_icon;
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +50,7 @@ class TommorowForecast extends StatelessWidget {
                   color: Theme.of(context).colorScheme.tertiary,
                   borderRadius: BorderRadius.circular(25)),
               child: Icon(
-                Icons.cloud,
+                weather_icon,
                 size: 42,
                 color: Theme.of(context).colorScheme.onPrimary,
               ),
@@ -52,7 +63,7 @@ class TommorowForecast extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text("Tommorow",
+                  Text(day_of_week,
                       style: GoogleFonts.lato(
                           fontSize: 16,
                           fontWeight: FontWeight.w600,
@@ -79,8 +90,8 @@ class TommorowForecast extends StatelessWidget {
                       TwoTempWidg(
                         textColor: Theme.of(context).colorScheme.onSurface,
                         iconColor: Colors.black,
-                        lowTemp: "17",
-                        highTemp: "23",
+                        lowTemp: low_temp,
+                        highTemp: high_temp,
                       ),
                     ],
                   ),
