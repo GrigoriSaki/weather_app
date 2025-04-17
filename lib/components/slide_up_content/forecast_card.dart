@@ -31,9 +31,9 @@ class ForecastCard extends StatelessWidget {
         boxShadow: [
           BoxShadow(
             color: Theme.of(context).colorScheme.onSurface.withAlpha(50),
-            blurRadius: 8,
+            blurRadius: 10,
             offset: Offset(0, 4),
-            spreadRadius: 1,
+            spreadRadius: 4,
           )
         ],
         color: Theme.of(context).colorScheme.onPrimary,

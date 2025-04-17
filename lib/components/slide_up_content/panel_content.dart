@@ -60,7 +60,6 @@ class _PanelContentState extends State<PanelContent> {
                       height: 110,
                       width: double.infinity,
                       child: ListView.builder(
-                          controller: widget.scrollController,
                           scrollDirection: Axis.horizontal,
                           itemCount: 5,
                           itemBuilder: (context, index) {
@@ -81,6 +80,7 @@ class _PanelContentState extends State<PanelContent> {
             Container(
               height: 365,
               child: ListView.builder(
+                controller: widget.scrollController,
                 physics: widget.panelPosition == 0
                     ? NeverScrollableScrollPhysics()
                     : BouncingScrollPhysics(),

@@ -1,10 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:weather_app/components/services/noti_service.dart';
 import 'package:weather_app/pages/home_with_panel.dart';
 import 'package:weather_app/theme/dark_mode.dart';
 import 'package:weather_app/theme/light_mode.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  // Initialize the notification service
+  NotiService().initNotifications();
+
   debugPaintSizeEnabled = false;
   runApp(const MyApp());
 }
