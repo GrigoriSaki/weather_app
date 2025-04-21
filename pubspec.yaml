@@ -39,6 +39,8 @@ dependencies:
   sliding_up_panel: ^2.0.0+1
   intl: ^0.17.0
   flutter_local_notifications: ^19.1.0
+  timezone: ^0.10.0
+  flutter_timezone: ^4.1.0
 
 dev_dependencies:
   flutter_test:
