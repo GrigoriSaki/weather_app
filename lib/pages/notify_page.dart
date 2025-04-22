@@ -7,16 +7,34 @@ class NotifyPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.secondary,
+      backgroundColor: Theme.of(context).colorScheme.surface,
       body: SafeArea(
         child: Center(
-            child: TextButton(
+            child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            ElevatedButton(
                 onPressed: () {
                   NotiService().showNotification(
                       title: "Test notification",
                       body: "This is a test notification");
                 },
-                child: Text("Send notification"))),
+                child: Text("Send notification")),
+            SizedBox(
+              height: 20,
+            ),
+            ElevatedButton(
+                onPressed: () {
+                  NotiService().scheduleNotification(
+                    title: "Test schedule noti",
+                    body: "This is a test schedule notification",
+                    hour: 17,
+                    minute: 53,
+                  );
+                },
+                child: Text("Schedule notification")),
+          ],
+        )),
       ),
     );
   }

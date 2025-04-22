@@ -1,5 +1,6 @@
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:timezone/timezone.dart' as tz;
+import 'package:timezone/data/latest.dart' as tz;
 import 'package:flutter_timezone/flutter_timezone.dart';
 
 class NotiService {
@@ -11,9 +12,13 @@ class NotiService {
 
   //Inicjalizacja powiadomień
   Future<void> initNotifications() async {
-    if (_isInitialized) {
-      return;
-    }
+    if (_isInitialized) return;
+
+    //init timezone
+    tz.initializeTimeZones();
+    final String currentTimeZone = await FlutterTimezone.getLocalTimezone();
+    print("Aktualna strefa czasowa urządzenia: $currentTimeZone");
+    tz.setLocalLocation(tz.getLocation(currentTimeZone));
 
     //inicjalizacja dla Androida
     const initiSettingsAndroid = AndroidInitializationSettings(
@@ -33,7 +38,7 @@ class NotiService {
   NotificationDetails notificationDetailsForAndroid() {
     return const NotificationDetails(
         android: AndroidNotificationDetails(
-            'basic_channel', 'Daily Notifications',
+            'basic_channel2', 'Daily Notifications',
             channelDescription: 'Basic notifications channel',
             importance: Importance.max,
             priority: Priority.high));
@@ -68,7 +73,17 @@ class NotiService {
 
     //scheduled the notification
     await notificationsPlugin.zonedSchedule(
-        id, title, body, scheduledDate, NotificationDetails(),
-        androidScheduleMode: AndroidScheduleMode.inexactAllowWhileIdle);
+      id, title, body, scheduledDate, notificationDetailsForAndroid(),
+      androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
+
+      // repeat daily
+      matchDateTimeComponents: DateTimeComponents.time,
+    );
+    print("Notification scheduled for $scheduledDate");
+  }
+
+  //cancel notifications
+  Future<void> cancelNotification() async {
+    await notificationsPlugin.cancelAll();
   }
 }
