@@ -6,18 +6,20 @@ import 'package:flutter_timezone/flutter_timezone.dart';
 class NotiService {
   final notificationsPlugin = FlutterLocalNotificationsPlugin();
 
-  bool _isInitialized = false;
+  final bool _isInitialized = false;
 
   bool get isInitialized => _isInitialized;
 
   //Inicjalizacja powiadomień
   Future<void> initNotifications() async {
-    if (_isInitialized) return;
+    if (_isInitialized) {
+      return;
+    }
 
     //init timezone
     tz.initializeTimeZones();
     final String currentTimeZone = await FlutterTimezone.getLocalTimezone();
-    print("Aktualna strefa czasowa urządzenia: $currentTimeZone");
+
     tz.setLocalLocation(tz.getLocation(currentTimeZone));
 
     //inicjalizacja dla Androida
@@ -38,10 +40,13 @@ class NotiService {
   NotificationDetails notificationDetailsForAndroid() {
     return const NotificationDetails(
         android: AndroidNotificationDetails(
-            'basic_channel2', 'Daily Notifications',
+            'weather_updates2', 'Daily Notifications2',
             channelDescription: 'Basic notifications channel',
             importance: Importance.max,
-            priority: Priority.high));
+            priority: Priority.high,
+            playSound: true,
+            enableVibration: true,
+            visibility: NotificationVisibility.public));
   }
 
   //show notification
@@ -72,14 +77,16 @@ class NotiService {
         tz.TZDateTime(tz.local, now.year, now.month, now.day, hour, minute);
 
     //scheduled the notification
+    if (scheduledDate.isBefore(now)) {
+      scheduledDate = scheduledDate.add(Duration(days: 1));
+    }
     await notificationsPlugin.zonedSchedule(
       id, title, body, scheduledDate, notificationDetailsForAndroid(),
-      androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
+      androidScheduleMode: AndroidScheduleMode.inexactAllowWhileIdle,
 
       // repeat daily
       matchDateTimeComponents: DateTimeComponents.time,
     );
-    print("Notification scheduled for $scheduledDate");
   }
 
   //cancel notifications

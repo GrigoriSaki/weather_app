@@ -5,11 +5,11 @@ import 'package:weather_app/pages/home_with_panel.dart';
 import 'package:weather_app/theme/dark_mode.dart';
 import 'package:weather_app/theme/light_mode.dart';
 
-void main() {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  // Initialize the notification service
-  NotiService().initNotifications();
+  final notiService = NotiService();
+  await notiService.initNotifications();
 
   debugPaintSizeEnabled = false;
   runApp(const MyApp());

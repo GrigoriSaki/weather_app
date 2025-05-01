@@ -3,6 +3,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:weather_app/components/my_clippers.dart';
 import 'package:weather_app/components/drawer/my_drawer_tile.dart';
+import 'package:weather_app/pages/location_page.dart';
 import 'package:weather_app/pages/notify_page.dart';
 
 class MyDrawer extends StatelessWidget {
@@ -60,6 +61,7 @@ class MyDrawer extends StatelessWidget {
                                           .colorScheme
                                           .onPrimary)),
                               Text(
+                                // ignore: prefer_adjacent_string_concatenation
                                 "°" + "C",
                                 style: GoogleFonts.rubik(
                                     fontSize: 45,
@@ -80,7 +82,11 @@ class MyDrawer extends StatelessWidget {
           ),
           const SizedBox(height: 50),
           MyDrawerTile(
-              icon: FontAwesomeIcons.house, title: "Home", onTap: () {}),
+              icon: FontAwesomeIcons.house,
+              title: "Home",
+              onTap: () {
+                Navigator.pop(context);
+              }),
           divider,
           const SizedBox(height: 15),
           MyDrawerTile(
@@ -92,6 +98,10 @@ class MyDrawer extends StatelessWidget {
               title: "Location",
               onTap: () {
                 Navigator.pop(context);
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const LocationPage()));
               }),
           divider,
           const SizedBox(height: 15),
