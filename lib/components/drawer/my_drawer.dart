@@ -98,10 +98,8 @@ class MyDrawer extends StatelessWidget {
               title: "Location",
               onTap: () {
                 Navigator.pop(context);
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const LocationPage()));
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => LocationPage()));
               }),
           divider,
           const SizedBox(height: 15),
