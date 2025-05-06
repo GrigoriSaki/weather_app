@@ -1,6 +1,6 @@
-import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:weather_app/components/location_page/dropdown_search.dart';
 import 'package:weather_app/components/services/choose_location_service.dart';
 
 class LocationPage extends StatefulWidget {
@@ -49,96 +49,16 @@ class _LocationPageState extends State<LocationPage> {
                     SizedBox(height: 20),
 
                     // Dropdown for country selection
-                    DropdownSearch<String>(
-                      // This is what is displayed on the list
-                      items: (filter, InfiniteScrollProps) async {
-                        return chooseLocation.countries;
-                      },
-
-                      //control of displayed item
-                      dropdownBuilder: (context, selectedItem) {
-                        return Text(selectedItem ?? "",
-                            style: GoogleFonts.lato(
-                                fontSize: 18,
-                                color:
-                                    Theme.of(context).colorScheme.onSurface));
-                      },
-
-                      //this displays the form
-                      enabled: true,
-
-                      //what is displayed after selecting the item
-                      selectedItem: selectedCountry,
-
-                      //decoration of the form
-                      decoratorProps: DropDownDecoratorProps(
-                          decoration: InputDecoration(
-                              border: OutlineInputBorder(),
-                              focusedBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                      width: 3,
-                                      color: Theme.of(context)
-                                          .colorScheme
-                                          .primary)),
-                              enabledBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                      width: 2,
-                                      color: Theme.of(context)
-                                          .colorScheme
-                                          .primary)),
-                              label: Text("Select country",
-                                  style: GoogleFonts.lato(
-                                      fontSize: 18,
-                                      color: Theme.of(context)
-                                          .colorScheme
-                                          .onSurface)))),
-                    ),
+                    MyDropdownSearch(
+                        selectedItem: selectedCountry,
+                        countryOrCity: "Select country",
+                        countriesOrCities: chooseLocation.countries),
                     const SizedBox(height: 20),
-                    // Dropdown for country selection
-                    DropdownSearch<String>(
-                      // This is what is displayed on the list
-                      items: (filter, InfiniteScrollProps) async {
-                        return chooseLocation.cities;
-                      },
-
-                      //control of displayed item
-                      dropdownBuilder: (context, selectedItem) {
-                        return Text(selectedItem ?? "",
-                            style: GoogleFonts.lato(
-                                fontSize: 18,
-                                color:
-                                    Theme.of(context).colorScheme.onSurface));
-                      },
-
-                      //this displays the form
-                      enabled: true,
-
-                      //what is displayed after selecting the item
-                      selectedItem: selectedCity,
-
-                      //decoration of the form
-                      decoratorProps: DropDownDecoratorProps(
-                          decoration: InputDecoration(
-                              border: OutlineInputBorder(),
-                              focusedBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                      width: 3,
-                                      color: Theme.of(context)
-                                          .colorScheme
-                                          .primary)),
-                              enabledBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                      width: 2,
-                                      color: Theme.of(context)
-                                          .colorScheme
-                                          .primary)),
-                              label: Text("Select city",
-                                  style: GoogleFonts.lato(
-                                      fontSize: 18,
-                                      color: Theme.of(context)
-                                          .colorScheme
-                                          .onSurface)))),
-                    ),
+                    // Dropdown for city selection
+                    MyDropdownSearch(
+                        selectedItem: selectedCity,
+                        countryOrCity: "Select city",
+                        countriesOrCities: chooseLocation.cities),
                   ],
                 ),
               )
