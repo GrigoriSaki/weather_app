@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:weather_app/components/services/noti_service.dart';
+import 'package:weather_app/services/noti_service.dart';
 
 class NotifyPage extends StatefulWidget {
   const NotifyPage({super.key});

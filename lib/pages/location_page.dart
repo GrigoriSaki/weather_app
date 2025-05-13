@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:weather_app/components/location_page/dropdown_search.dart';
-import 'package:weather_app/components/services/choose_location_service.dart';
+import 'package:weather_app/services/choose_location_service.dart';
 
 class LocationPage extends StatefulWidget {
   LocationPage({super.key});
@@ -50,15 +50,15 @@ class _LocationPageState extends State<LocationPage> {
 
                     // Dropdown for country selection
                     MyDropdownSearch(
-                        selectedItem: selectedCountry,
-                        countryOrCity: "Select country",
-                        countriesOrCities: chooseLocation.countries),
+                      selectedItem: selectedCountry,
+                      countryOrCity: "Select country",
+                    ),
                     const SizedBox(height: 20),
                     // Dropdown for city selection
                     MyDropdownSearch(
-                        selectedItem: selectedCity,
-                        countryOrCity: "Select city",
-                        countriesOrCities: chooseLocation.cities),
+                      selectedItem: selectedCity,
+                      countryOrCity: "Select city",
+                    ),
                   ],
                 ),
               )

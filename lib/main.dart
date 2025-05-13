@@ -1,6 +1,9 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:weather_app/components/services/noti_service.dart';
+import 'package:weather_app/services/firestore.dart';
+import 'package:weather_app/services/noti_service.dart';
+import 'package:weather_app/firebase_options.dart';
 import 'package:weather_app/pages/home_with_panel.dart';
 import 'package:weather_app/theme/dark_mode.dart';
 import 'package:weather_app/theme/light_mode.dart';
@@ -8,8 +11,13 @@ import 'package:weather_app/theme/light_mode.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+
   final notiService = NotiService();
   await notiService.initNotifications();
+  await FirestoreService().seedCountryCityData();
 
   debugPaintSizeEnabled = false;
   runApp(const MyApp());
