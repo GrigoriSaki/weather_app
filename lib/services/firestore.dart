@@ -100,9 +100,38 @@ class FirestoreService {
   Future<List<String>> getCountryNames() async {
     try {
       final snapshot = await firestore.collection('countries').get();
+
       return snapshot.docs.map((doc) => doc.data()['name'] as String).toList();
     } catch (e) {
       throw Exception('Failed to load countries: $e');
+    }
+  }
+
+  Future<List<String>> getCityNames(String countryName) async {
+    try {
+      final querySnapshot = await FirebaseFirestore.instance
+          .collection('countries')
+          .where('name', isEqualTo: countryName)
+          .limit(1)
+          .get();
+
+      if (querySnapshot.docs.isEmpty) {
+        return ["Polonia"];
+      }
+
+      final countryId = querySnapshot.docs.first.id;
+
+      final citiesSnapshot = await FirebaseFirestore.instance
+          .collection('countries')
+          .doc(countryId)
+          .collection('cities')
+          .get();
+
+      return citiesSnapshot.docs
+          .map((doc) => doc.data()['name'] as String)
+          .toList();
+    } catch (e) {
+      throw Exception('Nie udało się pobrać miast: $e');
     }
   }
 }
