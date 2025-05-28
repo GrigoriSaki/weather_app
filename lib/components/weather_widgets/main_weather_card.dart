@@ -93,12 +93,12 @@ class _MainWeatherCardState extends State<MainWeatherCard> {
                   ),
                 )),
             Positioned(
-                right: 2 + widget.panelPosition * 130,
-                top: 30,
+                right: 55,
+                bottom: 20 + widget.panelPosition * 60,
                 child: RotatedBox(
-                    quarterTurns: 3,
+                    quarterTurns: 0,
                     child: Transform.rotate(
-                      angle: 0 + (widget.panelPosition * 1.57),
+                      angle: 0,
                       child: Row(
                         children: [
                           Icon(

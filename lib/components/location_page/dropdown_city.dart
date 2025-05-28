@@ -9,7 +9,7 @@ class MyDropdownCity extends StatefulWidget {
   MyDropdownCity({super.key, required this.selectedCountry});
   String selectedCountry;
 
-  String selectedItem = "";
+  String? selectedItem;
   late Future<List<String>> citiesFuture;
 
   @override
