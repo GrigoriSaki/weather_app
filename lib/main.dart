@@ -17,7 +17,6 @@ void main() async {
 
   final notiService = NotiService();
   await notiService.initNotifications();
-  await FirestoreService().seedCountryCityData();
 
   debugPaintSizeEnabled = false;
   runApp(const MyApp());

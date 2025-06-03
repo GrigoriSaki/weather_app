@@ -1,0 +1,470 @@
+[
+  {
+    "name": "Warszawa"
+  },
+  {
+    "name": "Kraków"
+  },
+  {
+    "name": "Łódź"
+  },
+  {
+    "name": "Wrocław"
+  },
+  {
+    "name": "Poznań"
+  },
+  {
+    "name": "Gdańsk"
+  },
+  {
+    "name": "Szczecin"
+  },
+  {
+    "name": "Bydgoszcz"
+  },
+  {
+    "name": "Lublin"
+  },
+  {
+    "name": "Katowice"
+  },
+  {
+    "name": "Białystok"
+  },
+  {
+    "name": "Gdynia"
+  },
+  {
+    "name": "Częstochowa"
+  },
+  {
+    "name": "Radom"
+  },
+  {
+    "name": "Sosnowiec"
+  },
+  {
+    "name": "Toruń"
+  },
+  {
+    "name": "Kielce"
+  },
+  {
+    "name": "Gliwice"
+  },
+  {
+    "name": "Zabrze"
+  },
+  {
+    "name": "Bytom"
+  },
+  {
+    "name": "Olsztyn"
+  },
+  {
+    "name": "Bielsko-Biała"
+  },
+  {
+    "name": "Rzeszów"
+  },
+  {
+    "name": "Ruda Śląska"
+  },
+  {
+    "name": "Rybnik"
+  },
+  {
+    "name": "Tychy"
+  },
+  {
+    "name": "Dąbrowa Górnicza"
+  },
+  {
+    "name": "Opole"
+  },
+  {
+    "name": "Elbląg"
+  },
+  {
+    "name": "Płock"
+  },
+  {
+    "name": "Wałbrzych"
+  },
+  {
+    "name": "Gorzów Wielkopolski"
+  },
+  {
+    "name": "Włocławek"
+  },
+  {
+    "name": "Zielona Góra"
+  },
+  {
+    "name": "Tarnów"
+  },
+  {
+    "name": "Chorzów"
+  },
+  {
+    "name": "Koszalin"
+  },
+  {
+    "name": "Legnica"
+  },
+  {
+    "name": "Kalisz"
+  },
+  {
+    "name": "Grudziądz"
+  },
+  {
+    "name": "Jaworzno"
+  },
+  {
+    "name": "Słupsk"
+  },
+  {
+    "name": "Nowy Sącz"
+  },
+  {
+    "name": "Jastrzębie-Zdrój"
+  },
+  {
+    "name": "Jelenia Góra"
+  },
+  {
+    "name": "Konin"
+  },
+  {
+    "name": "Piotrków Trybunalski"
+  },
+  {
+    "name": "Inowrocław"
+  },
+  {
+    "name": "Lubin"
+  },
+  {
+    "name": "Ostrów Wielkopolski"
+  },
+  {
+    "name": "Siemianowice Śląskie"
+  },
+  {
+    "name": "Gniezno"
+  },
+  {
+    "name": "Suwałki"
+  },
+  {
+    "name": "Stargard"
+  },
+  {
+    "name": "Leszno"
+  },
+  {
+    "name": "Chełm"
+  },
+  {
+    "name": "Zamość"
+  },
+  {
+    "name": "Tomaszów Mazowiecki"
+  },
+  {
+    "name": "Przemyśl"
+  },
+  {
+    "name": "Stalowa Wola"
+  },
+  {
+    "name": "Łomża"
+  },
+  {
+    "name": "Tarnowskie Góry"
+  },
+  {
+    "name": "Łowicz"
+  },
+  {
+    "name": "Ostrowiec Świętokrzyski"
+  },
+  {
+    "name": "Biała Podlaska"
+  },
+  {
+    "name": "Pabianice"
+  },
+  {
+    "name": "Wejherowo"
+  },
+  {
+    "name": "Świdnica"
+  },
+  {
+    "name": "Mielec"
+  },
+  {
+    "name": "Zgierz"
+  },
+  {
+    "name": "Ostrołęka"
+  },
+  {
+    "name": "Kutno"
+  },
+  {
+    "name": "Starachowice"
+  },
+  {
+    "name": "Kołobrzeg"
+  },
+  {
+    "name": "Żory"
+  },
+  {
+    "name": "Racibórz"
+  },
+  {
+    "name": "Ełk"
+  },
+  {
+    "name": "Skierniewice"
+  },
+  {
+    "name": "Otwock"
+  },
+  {
+    "name": "Piła"
+  },
+  {
+    "name": "Skarżysko-Kamienna"
+  },
+  {
+    "name": "Tczew"
+  },
+  {
+    "name": "Świętochłowice"
+  },
+  {
+    "name": "Będzin"
+  },
+  {
+    "name": "Zawiercie"
+  },
+  {
+    "name": "Nowy Targ"
+  },
+  {
+    "name": "Puławy"
+  },
+  {
+    "name": "Wodzisław Śląski"
+  },
+  {
+    "name": "Sanok"
+  },
+  {
+    "name": "Siedlce"
+  },
+  {
+    "name": "Bochnia"
+  },
+  {
+    "name": "Chrzanów"
+  },
+  {
+    "name": "Świnoujście"
+  },
+  {
+    "name": "Trzebinia"
+  },
+  {
+    "name": "Nysa"
+  },
+  {
+    "name": "Łuków"
+  },
+  {
+    "name": "Jarosław"
+  },
+  {
+    "name": "Żary"
+  },
+  {
+    "name": "Kędzierzyn-Koźle"
+  },
+  {
+    "name": "Ząbki"
+  },
+  {
+    "name": "Kwidzyn"
+  },
+  {
+    "name": "Śrem"
+  },
+  {
+    "name": "Ciechanów"
+  },
+  {
+    "name": "Dębica"
+  },
+  {
+    "name": "Bielawa"
+  },
+  {
+    "name": "Lębork"
+  },
+  {
+    "name": "Żywiec"
+  },
+  {
+    "name": "Sopot"
+  },
+  {
+    "name": "Malbork"
+  },
+  {
+    "name": "Kętrzyn"
+  },
+  {
+    "name": "Bartoszyce"
+  },
+  {
+    "name": "Brodnica"
+  },
+  {
+    "name": "Cieszyn"
+  },
+  {
+    "name": "Mińsk Mazowiecki"
+  },
+  {
+    "name": "Wyszków"
+  },
+  {
+    "name": "Oświęcim"
+  },
+  {
+    "name": "Sandomierz"
+  },
+  {
+    "name": "Police"
+  },
+  {
+    "name": "Nowa Sól"
+  },
+  {
+    "name": "Piekary Śląskie"
+  },
+  {
+    "name": "Zielonka"
+  },
+  {
+    "name": "Knurów"
+  },
+  {
+    "name": "Olkusz"
+  },
+  {
+    "name": "Krosno"
+  },
+  {
+    "name": "Września"
+  },
+  {
+    "name": "Świebodzin"
+  },
+  {
+    "name": "Augustów"
+  },
+  {
+    "name": "Czechowice-Dziedzice"
+  },
+  {
+    "name": "Marki"
+  },
+  {
+    "name": "Kraśnik"
+  },
+  {
+    "name": "Zamość"
+  },
+  {
+    "name": "Lubartów"
+  },
+  {
+    "name": "Turek"
+  },
+  {
+    "name": "Kościerzyna"
+  },
+  {
+    "name": "Lubliniec"
+  },
+  {
+    "name": "Płońsk"
+  },
+  {
+    "name": "Goleniów"
+  },
+  {
+    "name": "Grajewo"
+  },
+  {
+    "name": "Gostyń"
+  },
+  {
+    "name": "Wągrowiec"
+  },
+  {
+    "name": "Kłodzko"
+  },
+  {
+    "name": "Łańcut"
+  },
+  {
+    "name": "Pszczyna"
+  },
+  {
+    "name": "Mysłowice"
+  },
+  {
+    "name": "Wieliczka"
+  },
+  {
+    "name": "Sieradz"
+  },
+  {
+    "name": "Biskupiec"
+  },
+  {
+    "name": "Środa Wielkopolska"
+  },
+  {
+    "name": "Hrubieszów"
+  },
+  {
+    "name": "Żnin"
+  },
+  {
+    "name": "Jarocin"
+  },
+  {
+    "name": "Chojnice"
+  },
+  {
+    "name": "Brzeg"
+  },
+  {
+    "name": "Strzelce Opolskie"
+  },
+  {
+    "name": "Zduńska Wola"
+  },
+  {
+    "name": "Szczecinek"
+  }
+]

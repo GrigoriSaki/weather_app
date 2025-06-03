@@ -6,6 +6,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:weather_app/components/weather_widgets/animated_temp_widg.dart';
+import 'package:weather_app/services/api_service.dart';
 import 'package:weather_app/theme/gradient_text.dart';
 
 // ignore: must_be_immutable
@@ -26,8 +27,31 @@ class MainWeatherCard extends StatefulWidget {
 }
 
 class _MainWeatherCardState extends State<MainWeatherCard> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    fetchTemperature();
+  }
+
   final String formattedDate =
       DateFormat('E, MMM d HH:mm').format(DateTime.now());
+  double currentTemperature = 0.0;
+
+  void fetchTemperature() async {
+    final apiService = ApiService('0c2b6512b858613da7c1967c0e4f2e67');
+
+    try {
+      double temp = await apiService.getCurrentTemperature('Warsaw');
+      setState(() {
+        currentTemperature = temp;
+      });
+    } catch (e) {
+      setState(() {
+        currentTemperature = 99;
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -154,8 +178,8 @@ class _MainWeatherCardState extends State<MainWeatherCard> {
                 scale: scale,
                 child: IgnorePointer(
                   child: GradientText(
-                    text: "17",
-                    fontSize: 130,
+                    text: currentTemperature.toStringAsFixed(0),
+                    fontSize: 110,
                     fontWeight: FontWeight.w500,
                     color: Colors.white,
                     applyHeightBehaviors: false,
