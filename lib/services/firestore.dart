@@ -17,12 +17,27 @@ class FirestoreService {
     final cities = await loadCitiesFromAssets();
 
     final batch = firestore.batch();
+    final snapshot = await firestore.collection('cities').get();
 
-    for (final city in cities) {
-      final docRef = firestore.collection('cities').doc(city['name']);
-      batch.set(docRef, city);
+    if (snapshot.docs.isEmpty) {
+      {
+        for (final city in cities) {
+          final docRef = firestore.collection('cities').doc(city['name']);
+          batch.set(docRef, city);
+        }
+        await batch.commit();
+        print('Added ${cities.length} cities to Firestore.');
+      }
+    } else {
+      print("Cities already exist in Firestore, skipping seeding.");
     }
-    await batch.commit();
-    print('Dodano ${cities.length} miast do Firestore');
+  }
+
+  Future<List<Map<String, dynamic>>> getCities() async {
+    final snapshot = await firestore.collection('cities').get();
+    return snapshot.docs
+        // ignore: unnecessary_cast
+        .map((doc) => doc.data() as Map<String, dynamic>)
+        .toList();
   }
 }

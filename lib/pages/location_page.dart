@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:weather_app/components/location_page/dropDownSearch.dart';
 
 // ignore: must_be_immutable
 class LocationPage extends StatefulWidget {
@@ -42,6 +43,7 @@ class _LocationPageState extends State<LocationPage> {
                   ),
                   SizedBox(height: 20),
                   const SizedBox(height: 20),
+                  MyDropDown()
                 ],
               ),
             )

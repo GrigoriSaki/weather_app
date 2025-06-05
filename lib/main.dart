@@ -15,6 +15,9 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
+  final firestoreService = FirestoreService();
+  await firestoreService.seedCities();
+
   final notiService = NotiService();
   await notiService.initNotifications();
 
