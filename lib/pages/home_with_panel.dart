@@ -37,8 +37,8 @@ class _HomeWithPanelState extends State<HomeWithPanel> {
       body: SlidingUpPanel(
         controller: _panelController,
         color: Colors.transparent,
-        minHeight: 75 + MediaQuery.of(context).size.height / 3,
-        maxHeight: 50 + MediaQuery.of(context).size.height * 2 / 3,
+        minHeight: MediaQuery.of(context).size.height / 2.5,
+        maxHeight: MediaQuery.of(context).size.height / 1.4,
         panel: PanelContent(
           scrollController: _scrollController,
           dsiplayedText: _displayedText,

@@ -3,7 +3,8 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class MyAppBar extends StatelessWidget {
-  const MyAppBar({super.key});
+  MyAppBar({super.key});
+  String currentLocation = "Warszawa";
 
   @override
   Widget build(BuildContext context) {
@@ -14,10 +15,10 @@ class MyAppBar extends StatelessWidget {
           //Location
           Icon(Icons.location_on_sharp,
               size: 30, color: Theme.of(context).colorScheme.onPrimary),
-          const SizedBox(width: 15),
+          const SizedBox(width: 3),
 
           Text(
-            "New York" + ", " + "USA",
+            "$currentLocation, Polska",
             style: GoogleFonts.lato(
                 fontSize: 23, color: Theme.of(context).colorScheme.onPrimary),
           ),

@@ -78,8 +78,9 @@ class _PanelContentState extends State<PanelContent> {
               ),
             ),
             Container(
-              height: 365,
+              height: MediaQuery.of(context).size.height / 2.4,
               child: ListView.builder(
+                padding: EdgeInsets.only(top: 5, bottom: 5),
                 controller: widget.scrollController,
                 physics: widget.panelPosition == 0
                     ? NeverScrollableScrollPhysics()
@@ -87,7 +88,7 @@ class _PanelContentState extends State<PanelContent> {
                 itemBuilder: (context, index) {
                   return Padding(
                     padding: const EdgeInsets.only(
-                        bottom: 15.0, left: 25, right: 25),
+                        bottom: 15.0, left: 25, right: 25, top: 0),
                     child: ForecastCard(
                       weather_icon: FontAwesomeIcons.cloudSun,
                       day_of_week: descriptions.daysOfWeek[index],
