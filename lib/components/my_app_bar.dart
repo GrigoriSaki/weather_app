@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
+import 'package:weather_app/provider/city_provider.dart';
 
 class MyAppBar extends StatelessWidget {
-  MyAppBar({super.key});
-  String currentLocation = "Warszawa";
+  const MyAppBar({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final currentLocation = Provider.of<CityProvider>(context);
     return Padding(
       padding: const EdgeInsets.only(left: 25.0, right: 25, top: 25, bottom: 8),
       child: Row(
@@ -18,7 +20,7 @@ class MyAppBar extends StatelessWidget {
           const SizedBox(width: 3),
 
           Text(
-            "$currentLocation, Polska",
+            "${currentLocation.selectedCity}, Polska",
             style: GoogleFonts.lato(
                 fontSize: 23, color: Theme.of(context).colorScheme.onPrimary),
           ),

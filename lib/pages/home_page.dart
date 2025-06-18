@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:weather_app/components/weather_widgets/main_weather_card.dart';
 import 'package:weather_app/components/my_app_bar.dart';
 import 'package:weather_app/components/weather_widgets/second_weather_card.dart';
+import 'package:weather_app/provider/city_provider.dart';
 
 class HomePage extends StatefulWidget {
   final double panelPosition;
@@ -18,6 +20,13 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    Provider.of<CityProvider>(context, listen: false).loadFromPrefs();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Padding(

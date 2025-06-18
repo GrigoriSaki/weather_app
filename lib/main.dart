@@ -1,6 +1,8 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:provider/provider.dart';
+import 'package:weather_app/provider/city_provider.dart';
 import 'package:weather_app/services/firestore.dart';
 import 'package:weather_app/services/noti_service.dart';
 import 'package:weather_app/firebase_options.dart';
@@ -30,10 +32,13 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-        theme: lightTheme,
-        darkTheme: darkTheme,
-        debugShowCheckedModeBanner: false,
-        home: HomeWithPanel());
+    return MultiProvider(
+      providers: [ChangeNotifierProvider(create: (context) => CityProvider())],
+      child: MaterialApp(
+          theme: lightTheme,
+          darkTheme: darkTheme,
+          debugShowCheckedModeBanner: false,
+          home: HomeWithPanel()),
+    );
   }
 }

@@ -5,7 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 import 'package:weather_app/components/weather_widgets/animated_temp_widg.dart';
+import 'package:weather_app/provider/city_provider.dart';
 import 'package:weather_app/services/api_service.dart';
 import 'package:weather_app/theme/gradient_text.dart';
 
@@ -21,6 +23,7 @@ class MainWeatherCard extends StatefulWidget {
     required this.blurValue,
   });
   double tempWidgWidth = 135;
+  String? currentCity;
 
   @override
   State<MainWeatherCard> createState() => _MainWeatherCardState();
@@ -29,8 +32,15 @@ class MainWeatherCard extends StatefulWidget {
 class _MainWeatherCardState extends State<MainWeatherCard> {
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
+
+    initializeCityAndWeather();
+  }
+
+  Future<void> initializeCityAndWeather() async {
+    final cityProvider = Provider.of<CityProvider>(context, listen: false);
+    await cityProvider.loadFromPrefs();
+    widget.currentCity = cityProvider.selectedCity;
     fetchTemperature();
   }
 
@@ -42,7 +52,9 @@ class _MainWeatherCardState extends State<MainWeatherCard> {
     final apiService = ApiService('0c2b6512b858613da7c1967c0e4f2e67');
 
     try {
-      double temp = await apiService.getCurrentTemperature('Warsaw');
+      double temp = await apiService
+          .getCurrentTemperature(widget.currentCity ?? 'Warszawa');
+
       setState(() {
         currentTemperature = temp;
       });

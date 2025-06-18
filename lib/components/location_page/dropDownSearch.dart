@@ -1,6 +1,8 @@
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:weather_app/provider/city_provider.dart';
 import 'package:weather_app/services/firestore.dart';
 
 class MyDropDown extends StatefulWidget {
@@ -14,7 +16,6 @@ class _MyDropDownState extends State<MyDropDown> {
   String? selectedCity;
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     _loadSelectedCity();
   }
@@ -37,9 +38,11 @@ class _MyDropDownState extends State<MyDropDown> {
 
   @override
   Widget build(BuildContext context) {
+    final currentLocation = Provider.of<CityProvider>(context);
     return DropdownSearch(
       asyncItems: (String filter) async {
         var cities = await firestoreService.getCities();
+        currentLocation.setSelectedCity(selectedCity!);
         return cities
             .map((city) => city['name'] as String)
             .where((name) => name.toLowerCase().contains(filter.toLowerCase()))
@@ -50,6 +53,7 @@ class _MyDropDownState extends State<MyDropDown> {
           selectedCity = city as String?;
         });
         _saveSelectedCity(city as String?);
+        currentLocation.setSelectedCity(city as String);
       },
       selectedItem: selectedCity,
       dropdownBuilder: (context, selectedItem) => Padding(
