@@ -31,17 +31,14 @@ class MainWeatherCard extends StatefulWidget {
 
 class _MainWeatherCardState extends State<MainWeatherCard> {
   @override
-  void initState() {
-    super.initState();
+  void didChangeDependencies() {
+    super.didChangeDependencies();
 
-    initializeCityAndWeather();
-  }
-
-  Future<void> initializeCityAndWeather() async {
-    final cityProvider = Provider.of<CityProvider>(context, listen: false);
-    await cityProvider.loadFromPrefs();
-    widget.currentCity = cityProvider.selectedCity;
-    fetchTemperature();
+    final currentCity = Provider.of<CityProvider>(context).selectedCity;
+    if (currentCity != widget.currentCity) {
+      widget.currentCity = currentCity;
+      fetchTemperature();
+    }
   }
 
   final String formattedDate =
@@ -52,11 +49,11 @@ class _MainWeatherCardState extends State<MainWeatherCard> {
     final apiService = ApiService('0c2b6512b858613da7c1967c0e4f2e67');
 
     try {
-      double temp = await apiService
+      Map<String, double> temps = await apiService
           .getCurrentTemperature(widget.currentCity ?? 'Warszawa');
 
       setState(() {
-        currentTemperature = temp;
+        currentTemperature = temps['temp_main'] ?? 99;
       });
     } catch (e) {
       setState(() {
@@ -75,7 +72,7 @@ class _MainWeatherCardState extends State<MainWeatherCard> {
 
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 5),
-      child: Container(
+      child: SizedBox(
         height: widgetHeight,
         width: MediaQuery.of(context).size.width * 0.9,
         child: Stack(
@@ -207,7 +204,7 @@ class _MainWeatherCardState extends State<MainWeatherCard> {
                 child: Padding(
                     padding: const EdgeInsets.only(top: 8.0),
                     child: GradientText(
-                      text: "°" + "C",
+                      text: "${"°"}C",
                       fontSize: 50,
                       fontWeight: FontWeight.w400,
                       color: Colors.white,
