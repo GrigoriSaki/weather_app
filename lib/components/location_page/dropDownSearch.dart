@@ -6,7 +6,7 @@ import 'package:weather_app/provider/city_provider.dart';
 import 'package:weather_app/services/firestore.dart';
 
 class MyDropDown extends StatefulWidget {
-  MyDropDown({super.key});
+  const MyDropDown({super.key});
 
   @override
   State<MyDropDown> createState() => _MyDropDownState();

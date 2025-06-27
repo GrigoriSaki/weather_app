@@ -1,16 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import 'package:weather_app/components/my_clippers.dart';
 import 'package:weather_app/components/slide_up_content/hourly_forecast.dart';
 import 'package:weather_app/components/slide_up_content/forecast_card.dart';
+import 'package:weather_app/data/hourly_fore_icons.dart';
 import 'package:weather_app/data/offline_data.dart';
+import 'package:weather_app/provider/city_provider.dart';
+import 'package:weather_app/services/api_service.dart';
 
 // ignore: must_be_immutable
 class PanelContent extends StatefulWidget {
   double panelPosition;
   final String dsiplayedText;
   ScrollController scrollController;
+  GetHourlyForecastIcon getWeatherIcon = GetHourlyForecastIcon();
 
   PanelContent({
     super.key,
@@ -19,12 +24,54 @@ class PanelContent extends StatefulWidget {
     required this.scrollController,
   });
 
+  String? currentCity;
+
   @override
   State<PanelContent> createState() => _PanelContentState();
 }
 
 class _PanelContentState extends State<PanelContent> {
   Descriptions descriptions = Descriptions();
+  List<dynamic> listOfTemps = [];
+  List<dynamic> listOfHours = [];
+  List<dynamic> listOfIcons = [];
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+
+    final currentCity = Provider.of<CityProvider>(context).selectedCity;
+    if (currentCity != widget.currentCity) {
+      widget.currentCity = currentCity;
+    }
+    fetchListOfTemps();
+  }
+
+  void fetchListOfTemps() async {
+    final apiService = ApiService('0c2b6512b858613da7c1967c0e4f2e67');
+
+    try {
+      final forecast = await apiService.getHourlyForecast('Warszawa');
+      setState(() {
+        listOfTemps = forecast.map((e) => e['temp']).toList();
+        listOfHours = forecast.map((e) => e['hour']).toList();
+        listOfIcons = forecast.map((e) => e['icon']).toList();
+      });
+    } catch (e) {
+      setState(() {
+        listOfTemps = [
+          9,
+          9,
+          9,
+          9,
+          9,
+          9,
+          9,
+          9,
+        ];
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -56,17 +103,19 @@ class _PanelContentState extends State<PanelContent> {
                   SizedBox(
                     height: 10,
                   ),
-                  Container(
+                  SizedBox(
                       height: 110,
                       width: double.infinity,
                       child: ListView.builder(
                           scrollDirection: Axis.horizontal,
-                          itemCount: 5,
+                          itemCount: listOfTemps.length,
                           itemBuilder: (context, index) {
                             return HourlyForecast(
-                              icon: FontAwesomeIcons.cloudBolt,
-                              hour: "09:00 AM",
-                              temperature: "20",
+                              icon: widget.getWeatherIcon
+                                  .giveIcon(listOfIcons[index].toString()),
+                              hour: ('${listOfHours[index].toString()}:00'),
+                              temperature:
+                                  listOfTemps[index].round().toString(),
                             );
                           })),
                   Text(widget.dsiplayedText,
@@ -77,7 +126,7 @@ class _PanelContentState extends State<PanelContent> {
                 ],
               ),
             ),
-            Container(
+            SizedBox(
               height: MediaQuery.of(context).size.height / 2.4,
               child: ListView.builder(
                 padding: EdgeInsets.only(top: 5, bottom: 5),

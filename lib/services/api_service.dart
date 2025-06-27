@@ -27,14 +27,17 @@ class ApiService {
   //Getting City Coordinates
   Future<Map<String, double>> getCityCoordinates(String cityName) async {
     final url =
-        'https://api.openweathermap.org/data/2.5/weather?q=$cityName&appid=$apiKey';
+        'https://api.openweathermap.org/geo/1.0/direct?q=$cityName&limit=1&appid=$apiKey';
     final response = await http.get(Uri.parse(url));
     if (response.statusCode == 200) {
-      final data = jsonDecode(response.body);
-      final coord = data['coord'];
+      final List data = jsonDecode(response.body);
+
+      if (data.isEmpty) {
+        throw Exception('City not found');
+      }
       return {
-        'lat': coord['lat'].toDouble(),
-        'lon': coord['lon'].toDouble(),
+        'lat': data[0]['lat'].toDouble(),
+        'lon': data[0]['lon'].toDouble(),
       };
     } else {
       throw Exception('Failed to load coordinates');
@@ -42,29 +45,34 @@ class ApiService {
   }
 
   //Getting hourly forecast
-  Future<List<double>> getHourlyForecast(String cityName) async {
-    final coords = await getCityCoordinates(cityName);
+  Future<List<Map<String, dynamic>>> getHourlyForecast(String cityName) async {
     final url =
-        'https://api.openweathermap.org/data/2.5/onecall?lat=${coords['lat']}&lon=${coords['lon']}&exclude=minutely,daily,alerts,current&appid=$apiKey&units=metric';
+        'https://api.openweathermap.org/data/2.5/forecast?q=$cityName&appid=$apiKey&units=metric';
 
     final response = await http.get(Uri.parse(url));
+
     if (response.statusCode == 200) {
       final data = jsonDecode(response.body);
-      final List hours = data['hourly'];
+      final List hours = data['list'];
       final now = DateTime.now();
       final today = DateTime(now.year, now.month, now.day);
-      List<double> temps = [];
+      List<Map<String, dynamic>> result = [];
       for (final hour in hours) {
         final dt =
             DateTime.fromMillisecondsSinceEpoch(hour['dt'] * 1000, isUtc: true)
                 .toLocal();
+        final weather = hour['weather'][0];
         if (dt.year == today.year &&
             dt.month == today.month &&
             dt.day == today.day) {
-          temps.add(hour['temp']?.toDouble() ?? 0.0);
+          result.add({
+            'hour': dt.hour,
+            'temp': hour['main']['temp']?.toDouble() ?? 0.0,
+            'icon': weather['icon'],
+          });
         }
       }
-      return temps;
+      return result;
     } else {
       throw Exception('Failed to load hourly weather data');
     }
