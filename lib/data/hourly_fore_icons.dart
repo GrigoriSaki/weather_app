@@ -12,18 +12,18 @@ class GetHourlyForecastIcon {
       case '02n':
         return FontAwesomeIcons.cloudMoon;
       case '03d':
+        return FontAwesomeIcons.cloudSun;
       case '03n':
-        return FontAwesomeIcons.cloud;
+        return FontAwesomeIcons.cloudMoon;
       case '04d':
       case '04n':
-        return FontAwesomeIcons.smog;
+        return FontAwesomeIcons.cloud;
       case '09d':
       case '09n':
-        return FontAwesomeIcons.cloudRain;
+        return FontAwesomeIcons.cloudShowersWater;
       case '10d':
-        return FontAwesomeIcons.cloudSunRain;
       case '10n':
-        return FontAwesomeIcons.cloudMoonRain;
+        return FontAwesomeIcons.cloudRain;
       case '11d':
       case '11n':
         return FontAwesomeIcons.boltLightning;
@@ -34,7 +34,7 @@ class GetHourlyForecastIcon {
       case '50n':
         return FontAwesomeIcons.smog;
       default:
-        return FontAwesomeIcons.question; // Default icon for unknown codes
+        return FontAwesomeIcons.question;
     }
   }
 }

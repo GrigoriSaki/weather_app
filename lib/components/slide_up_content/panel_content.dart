@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:weather_app/components/my_clippers.dart';
@@ -16,6 +15,8 @@ class PanelContent extends StatefulWidget {
   final String dsiplayedText;
   ScrollController scrollController;
   GetHourlyForecastIcon getWeatherIcon = GetHourlyForecastIcon();
+
+  int weekDay = DateTime.now().weekday;
 
   PanelContent({
     super.key,
@@ -51,7 +52,8 @@ class _PanelContentState extends State<PanelContent> {
     final apiService = ApiService('0c2b6512b858613da7c1967c0e4f2e67');
 
     try {
-      final forecast = await apiService.getHourlyForecast('Warszawa');
+      final forecast =
+          await apiService.getHourlyForecast(widget.currentCity ?? 'Warszawa');
       setState(() {
         listOfTemps = forecast.map((e) => e['temp']).toList();
         listOfHours = forecast.map((e) => e['hour']).toList();
@@ -139,11 +141,16 @@ class _PanelContentState extends State<PanelContent> {
                     padding: const EdgeInsets.only(
                         bottom: 15.0, left: 25, right: 25, top: 0),
                     child: ForecastCard(
-                      weather_icon: FontAwesomeIcons.cloudSun,
-                      day_of_week: descriptions.daysOfWeek[index],
-                      comment: descriptions.descriptions[index],
-                      low_temp: descriptions.lowTemp[index],
-                      high_temp: descriptions.highTemp[index],
+                      weather_icon:
+                          descriptions.icons[(widget.weekDay + index) % 7],
+                      day_of_week:
+                          descriptions.daysOfWeek[(widget.weekDay + index) % 7],
+                      comment: descriptions
+                          .descriptions[(widget.weekDay + index) % 7],
+                      low_temp:
+                          descriptions.lowTemp[(widget.weekDay + index) % 7],
+                      high_temp:
+                          descriptions.highTemp[(widget.weekDay + index) % 7],
                     ),
                   );
                 },

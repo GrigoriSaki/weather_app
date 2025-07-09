@@ -1,12 +1,11 @@
 import 'dart:async';
 import 'dart:ui';
-
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:weather_app/components/weather_widgets/animated_temp_widg.dart';
+import 'package:weather_app/data/offline_data.dart';
 import 'package:weather_app/provider/city_provider.dart';
 import 'package:weather_app/services/api_service.dart';
 import 'package:weather_app/theme/gradient_text.dart';
@@ -41,9 +40,9 @@ class _MainWeatherCardState extends State<MainWeatherCard> {
     }
   }
 
-  final String formattedDate =
-      DateFormat('E, MMM d HH:mm').format(DateTime.now());
+  String formattedDate = DateFormat('E, MMM d HH:mm').format(DateTime.now());
   double currentTemperature = 0.0;
+  List<dynamic> listOfIcons = [""];
 
   void fetchTemperature() async {
     final apiService = ApiService('0c2b6512b858613da7c1967c0e4f2e67');
@@ -52,8 +51,13 @@ class _MainWeatherCardState extends State<MainWeatherCard> {
       Map<String, double> temps = await apiService
           .getCurrentTemperature(widget.currentCity ?? 'Warszawa');
 
+      final forecast =
+          await apiService.getHourlyForecast(widget.currentCity ?? 'Warszawa');
+
       setState(() {
         currentTemperature = temps['temp_main'] ?? 99;
+        formattedDate = DateFormat('E, MMM d HH:mm').format(DateTime.now());
+        listOfIcons = forecast.map((e) => e['icon']).toList();
       });
     } catch (e) {
       setState(() {
@@ -126,7 +130,8 @@ class _MainWeatherCardState extends State<MainWeatherCard> {
                   ),
                 )),
             Positioned(
-                right: 55,
+                left: MediaQuery.of(context).size.width * 0.37,
+                right: 8,
                 bottom: 20 + widget.panelPosition * 60,
                 child: RotatedBox(
                     quarterTurns: 0,
@@ -135,18 +140,28 @@ class _MainWeatherCardState extends State<MainWeatherCard> {
                       child: Row(
                         children: [
                           Icon(
-                            FontAwesomeIcons.cloudSun,
+                            Descriptions.getWeatherIcon(
+                                Descriptions.getWeatherdescription(
+                                    listOfIcons[0],
+                                    listOfIcons[listOfIcons.length - 1])),
                             color: Theme.of(context).colorScheme.onPrimary,
                           ),
                           SizedBox(
                             width: 10,
                           ),
-                          Text("Mostly Cloudy",
-                              style: GoogleFonts.lato(
-                                  color:
-                                      Theme.of(context).colorScheme.onPrimary,
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w600)),
+                          SizedBox(
+                            width: 165,
+                            child: Text(
+                                Descriptions.getWeatherdescription(
+                                    listOfIcons[0],
+                                    listOfIcons[listOfIcons.length - 1]),
+                                overflow: TextOverflow.ellipsis,
+                                style: GoogleFonts.lato(
+                                    color:
+                                        Theme.of(context).colorScheme.onPrimary,
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w600)),
+                          ),
                         ],
                       ),
                     ))),
