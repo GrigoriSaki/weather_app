@@ -15,7 +15,7 @@ class HourlyForecast extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 10.0),
-      child: Container(
+      child: SizedBox(
         width: 65,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -46,7 +46,7 @@ class HourlyForecast extends StatelessWidget {
                         .withAlpha(150))),
 
             //temperature
-            Text(temperature + "°",
+            Text("$temperature°",
                 style: GoogleFonts.lato(
                     fontSize: 20,
                     fontWeight: FontWeight.w600,

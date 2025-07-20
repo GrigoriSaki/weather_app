@@ -1,4 +1,3 @@
-import 'dart:async';
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -83,52 +82,28 @@ class _MainWeatherCardState extends State<MainWeatherCard> {
           children: [
             //Predicted Temperature for today
             Positioned(
-                bottom: 10 + (widget.panelPosition * 110),
-                left: 2 + (widget.panelPosition * 190),
-                child: GestureDetector(
-                  onTap: () {
-                    setState(() {
-                      if (widget.tempWidgWidth <= 135 &&
-                          widget.panelPosition == 0) {
-                        widget.tempWidgWidth = 300;
-                        Future.delayed(
-                          Duration(milliseconds: 250),
-                          () {
-                            setState(() {
-                              widget.isExpanded = true;
-                            });
-                          },
-                        );
-                      } else if (widget.tempWidgWidth > 135) {
-                        widget.isExpanded = false;
-                        widget.tempWidgWidth = 135;
-                      }
-                    });
-                  },
-                  child: AnimatedContainer(
-                    duration: Duration(milliseconds: 200),
-                    curve: Curves.easeInOut,
-                    height: 50,
-                    width: widget.tempWidgWidth,
-                    decoration: BoxDecoration(
-                        border: Border.all(
-                            color: Theme.of(context)
-                                .colorScheme
-                                .onPrimary
-                                .withAlpha(40),
-                            width: 2),
+              bottom: 10 + (widget.panelPosition * 110),
+              left: 2 + (widget.panelPosition * 190),
+              child: AnimatedContainer(
+                duration: Duration(milliseconds: 200),
+                curve: Curves.easeInOut,
+                height: 50,
+                width: widget.tempWidgWidth,
+                decoration: BoxDecoration(
+                    border: Border.all(
                         color: Theme.of(context)
                             .colorScheme
                             .onPrimary
-                            .withAlpha(30),
-                        borderRadius: BorderRadius.circular(30)),
-                    child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                        child: AnimatedTempWidget(
-                          isExpanded: widget.isExpanded,
-                        )),
-                  ),
-                )),
+                            .withAlpha(40),
+                        width: 2),
+                    color:
+                        Theme.of(context).colorScheme.onPrimary.withAlpha(30),
+                    borderRadius: BorderRadius.circular(30)),
+                child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                    child: AnimatedTempWidget()),
+              ),
+            ),
             Positioned(
                 left: MediaQuery.of(context).size.width * 0.37,
                 right: 8,

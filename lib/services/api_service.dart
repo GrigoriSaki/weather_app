@@ -77,4 +77,28 @@ class ApiService {
       throw Exception('Failed to load hourly weather data');
     }
   }
+
+  //Getting air pollution
+  Future<Map<String, dynamic>> getAirPollution(String cityName) async {
+    final coordinates = await getCityCoordinates(cityName);
+    final lat = coordinates['lat'];
+    final lon = coordinates['lon'];
+
+    final url =
+        'http://api.openweathermap.org/data/2.5/air_pollution?lat=$lat&lon=$lon&appid=$apiKey';
+
+    final response = await http.get(Uri.parse(url));
+
+    if (response.statusCode == 200) {
+      final data = jsonDecode(response.body);
+      final pollution = data['list'][0];
+
+      return {
+        'aqi': pollution['main']['aqi'], // 1-5
+        'pm2_5': pollution['components']['pm2_5'],
+      };
+    } else {
+      throw Exception('No AP data');
+    }
+  }
 }

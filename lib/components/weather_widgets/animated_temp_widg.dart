@@ -6,9 +6,9 @@ import 'package:weather_app/provider/city_provider.dart';
 import 'package:weather_app/services/api_service.dart';
 
 class AnimatedTempWidget extends StatefulWidget {
-  const AnimatedTempWidget({super.key, required this.isExpanded});
-
-  final bool isExpanded;
+  const AnimatedTempWidget({
+    super.key,
+  });
 
   @override
   State<AnimatedTempWidget> createState() => _AnimatedTempWidgetState();
@@ -50,72 +50,23 @@ class _AnimatedTempWidgetState extends State<AnimatedTempWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.start,
       children: [
-        Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            Text(
-              "Today",
-              style: GoogleFonts.lato(
-                  color: Theme.of(context).colorScheme.onPrimary),
-            ),
-            Row(
-              children: [
-                SizedBox(
-                  width: 10,
-                ),
-                TwoTempWidg(
-                  textColor: Theme.of(context).colorScheme.onPrimary,
-                  lowTemp: minTemperature ?? "12",
-                  highTemp: maxTemperature ?? "18",
-                  iconColor:
-                      Theme.of(context).colorScheme.onPrimary.withAlpha(200),
-                ),
-                SizedBox(
-                  width: 10,
-                ),
-              ],
-            ),
-          ],
+        Text(
+          "Today",
+          style:
+              GoogleFonts.lato(color: Theme.of(context).colorScheme.onPrimary),
         ),
-        widget.isExpanded
-            ? RotatedBox(
-                quarterTurns: 3,
-                child: Divider(
-                  color: Theme.of(context).colorScheme.onPrimary.withAlpha(50),
-                  thickness: 3,
-                  endIndent: 5,
-                  indent: 5,
-                ),
-              )
-            : SizedBox(),
-        widget.isExpanded
-            ? Column(
-                children: [
-                  Text(
-                    "Tomorrow",
-                    style: GoogleFonts.lato(
-                        color: Theme.of(context).colorScheme.onPrimary),
-                  ),
-                  Row(
-                    children: [
-                      SizedBox(width: 10),
-                      TwoTempWidg(
-                        textColor: Theme.of(context).colorScheme.onPrimary,
-                        lowTemp: "18",
-                        highTemp: "25",
-                        iconColor: Theme.of(context)
-                            .colorScheme
-                            .onPrimary
-                            .withAlpha(200),
-                      ),
-                    ],
-                  ),
-                ],
-              )
-            : SizedBox(),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 10.0),
+          child: TwoTempWidg(
+            textColor: Theme.of(context).colorScheme.onPrimary,
+            lowTemp: minTemperature ?? "99",
+            highTemp: maxTemperature ?? "99",
+            iconColor: Theme.of(context).colorScheme.onPrimary.withAlpha(200),
+          ),
+        ),
       ],
     );
   }

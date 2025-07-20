@@ -197,6 +197,12 @@ class Descriptions {
       case "Snowfall expected":
         return FontAwesomeIcons.snowflake;
 
+      case "Some clouds":
+        return FontAwesomeIcons.cloud;
+
+      case "Mostly sunny":
+        return FontAwesomeIcons.sun;
+
       default:
         return FontAwesomeIcons.question;
     }
